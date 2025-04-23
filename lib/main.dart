@@ -1,16 +1,21 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'app/app_config.dart';
+import 'app/presentation/weather/cubit/cubit/weather_cubit.dart';
 import 'app/utils/app_router.dart';
 import 'app/utils/locator.dart';
-import 'core/logger.dart';
 import 'core/network/api_manager.dart';
+import 'core/utils/logger.dart';
 
 void main() {
   runZonedGuarded(
-    () {
+    () async {
+      // Load environment variables (API_KEY e.g.).
+      await dotenv.load();
       // Initialize the app components.
       _initializeDependencies();
       // Handle Flutter errors.
@@ -28,11 +33,14 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      onGenerateRoute: AppRouter.generateRoute,
-      initialRoute: AppRouter.initialRoute,
-      builder: _buildApp,
+    return MultiBlocProvider(
+      providers: _getCubitProviders(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        onGenerateRoute: AppRouter.generateRoute,
+        initialRoute: AppRouter.initialRoute,
+        builder: _buildApp,
+      ),
     );
   }
 
@@ -42,6 +50,14 @@ class MainApp extends StatelessWidget {
       data: MediaQuery.of(context).copyWith(textScaler: TextScaler.noScaling),
       child: Scaffold(body: child),
     );
+  }
+
+  List<BlocProvider> _getCubitProviders() {
+    return [
+      BlocProvider<WeatherCubit>(
+        create: (context) => locator<WeatherCubit>(),
+      ),
+    ];
   }
 }
 

@@ -7,15 +7,13 @@ import 'package:dio_http2_adapter/dio_http2_adapter.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
 import 'package:uuid/uuid.dart';
 
-import '../logger.dart';
+import '../utils/logger.dart';
 import 'api_manager_helpers.dart';
 import 'connectivity_manager.dart';
 
 /// An advanced http client to manage api operations such as get, post etc.
 abstract class ApiManager {
   void setup(ApiSetupParams setupParams);
-
-  void setBearerAuthToken(String? token);
 
   Future<ApiResult<TOutput>> call<TOutput extends Object>(
     ApiCall<TOutput> api, {
@@ -63,13 +61,6 @@ class ApiManagerImpl implements ApiManager {
     _initialHttpClientAdapter = _client.httpClientAdapter;
     // Initialize onApiError stream controller.
     _onApiErrorController = StreamController.broadcast();
-  }
-
-  @override
-  void setBearerAuthToken(String? token) {
-    if (token != null) {
-      _client.options.headers['authorization'] = 'Bearer $token';
-    }
   }
 
   @override

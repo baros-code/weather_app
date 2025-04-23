@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
 
-import '../result.dart';
+import '../utils/result.dart';
 
 enum ApiContentType { json, text }
 
