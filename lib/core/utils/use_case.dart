@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:async/async.dart' as async;
 import 'package:flutter/foundation.dart';
 
-import 'logger.dart';
 import '../network/api_manager_helpers.dart';
+import 'logger.dart';
 import 'result.dart';
 
 abstract class UseCase<TInput, TOutput extends Object, TEvent>

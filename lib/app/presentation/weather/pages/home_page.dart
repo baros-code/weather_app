@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/presentation/controlled_view.dart';
+import '../../utils/build_context_ext.dart';
 import '../controllers/home_controller.dart';
 import '../cubit/cubit/weather_cubit.dart';
 
@@ -16,8 +17,13 @@ class HomePage extends ControlledView<HomeController, Object> {
     return BlocBuilder<WeatherCubit, WeatherState>(
       builder: (context, state) {
         return Scaffold(
+          backgroundColor: context.colorScheme.primaryContainer,
           appBar: AppBar(
-            title: const Text('Weather App'),
+            title: Text(
+              'Weather App',
+              style: context.textTheme.headlineSmall,
+            ),
+            backgroundColor: context.colorScheme.primaryContainer,
           ),
           body: Center(
             child: Column(
@@ -25,8 +31,12 @@ class HomePage extends ControlledView<HomeController, Object> {
               children: [
                 Text(
                   'Current Weather',
+                  style: context.textTheme.titleLarge,
                 ),
-                // Add your weather data display here
+                ElevatedButton(
+                  onPressed: context.themeProvider.toggleThemeMode,
+                  child: Text('Toggle theme'),
+                ),
               ],
             ),
           ),

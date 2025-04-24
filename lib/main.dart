@@ -3,11 +3,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:provider/provider.dart';
 
 import 'app/app_config.dart';
+import 'app/presentation/utils/theme_provider.dart';
 import 'app/presentation/weather/cubit/cubit/weather_cubit.dart';
 import 'app/utils/app_router.dart';
-import 'app/utils/locator.dart';
+import 'app/utils/service_locator.dart';
 import 'core/network/api_manager.dart';
 import 'core/utils/logger.dart';
 
@@ -35,11 +37,21 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: _getCubitProviders(),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        onGenerateRoute: AppRouter.generateRoute,
-        initialRoute: AppRouter.initialRoute,
-        builder: _buildApp,
+      child: ChangeNotifierProvider(
+        create: (context) => ThemeProvider(),
+        child: Consumer<ThemeProvider>(
+          builder: (context, themeProvider, _) {
+            return MaterialApp(
+              theme: themeProvider.lightTheme,
+              darkTheme: themeProvider.darkTheme,
+              themeMode: themeProvider.themeMode,
+              debugShowCheckedModeBanner: false,
+              onGenerateRoute: AppRouter.generateRoute,
+              initialRoute: AppRouter.initialRoute,
+              builder: _buildApp,
+            );
+          },
+        ),
       ),
     );
   }
@@ -63,7 +75,7 @@ class MainApp extends StatelessWidget {
 
 void _initializeDependencies() {
   WidgetsFlutterBinding.ensureInitialized();
-  Locator.initialize();
+  ServiceLocator.initialize();
   locator<ApiManager>().setup(AppConfig.apiSetupParams);
 }
 
