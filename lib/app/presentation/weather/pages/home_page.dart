@@ -20,7 +20,7 @@ class HomePage extends ControlledView<HomeController, Object> {
           backgroundColor: context.colorScheme.primaryContainer,
           appBar: AppBar(
             title: Text(
-              'Weather App',
+              context.localizations.helloWorld,
               style: context.textTheme.headlineSmall,
             ),
             backgroundColor: context.colorScheme.primaryContainer,
@@ -36,6 +36,11 @@ class HomePage extends ControlledView<HomeController, Object> {
                 ElevatedButton(
                   onPressed: context.themeProvider.toggleThemeMode,
                   child: Text('Toggle theme'),
+                ),
+                ElevatedButton(
+                  onPressed: () =>
+                      context.localizationProvider.setLocale(Locale('es')),
+                  child: Text('Change language'),
                 ),
               ],
             ),

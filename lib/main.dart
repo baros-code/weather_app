@@ -3,9 +3,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 import 'app/app_config.dart';
+import 'app/presentation/utils/localization_provider.dart';
 import 'app/presentation/utils/theme_provider.dart';
 import 'app/presentation/weather/cubit/cubit/weather_cubit.dart';
 import 'app/utils/app_router.dart';
@@ -37,10 +40,17 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: _getCubitProviders(),
-      child: ChangeNotifierProvider(
-        create: (context) => ThemeProvider(),
-        child: Consumer<ThemeProvider>(
-          builder: (context, themeProvider, _) {
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider<ThemeProvider>(
+            create: (_) => ThemeProvider(),
+          ),
+          ChangeNotifierProvider<LocalizationProvider>(
+            create: (_) => LocalizationProvider(),
+          ),
+        ],
+        child: Consumer2<ThemeProvider, LocalizationProvider>(
+          builder: (context, themeProvider, localizationProvider, _) {
             return MaterialApp(
               theme: themeProvider.lightTheme,
               darkTheme: themeProvider.darkTheme,
@@ -48,6 +58,14 @@ class MainApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               onGenerateRoute: AppRouter.generateRoute,
               initialRoute: AppRouter.initialRoute,
+              localizationsDelegates: [
+                AppLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              locale: localizationProvider.locale,
+              supportedLocales: const [Locale('en'), Locale('es')],
               builder: _buildApp,
             );
           },
