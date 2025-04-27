@@ -8,11 +8,12 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 import 'app/app_config.dart';
-import 'app/utils/localization_provider.dart';
-import 'app/utils/theme_provider.dart';
-import 'app/presentation/weather/cubit/cubit/weather_cubit.dart';
-import 'app/utils/app_router.dart';
-import 'app/utils/service_locator.dart';
+import 'app/features/weather/presentation/cubit/weather_cubit.dart';
+import 'app/shared/presentation/cubit/cubit/device_location_cubit.dart';
+import 'app/shared/utils/app_router.dart';
+import 'app/shared/utils/localization_provider.dart';
+import 'app/shared/utils/service_locator.dart';
+import 'app/shared/utils/theme_provider.dart';
 import 'core/network/api_manager.dart';
 import 'core/utils/logger.dart';
 
@@ -84,6 +85,9 @@ class MainApp extends StatelessWidget {
 
   List<BlocProvider> _getCubitProviders() {
     return [
+      BlocProvider<DeviceLocationCubit>(
+        create: (context) => locator<DeviceLocationCubit>(),
+      ),
       BlocProvider<WeatherCubit>(
         create: (context) => locator<WeatherCubit>(),
       ),

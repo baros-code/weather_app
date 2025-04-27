@@ -43,6 +43,11 @@ class AppConfig {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
+        textStyle: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          color: Colors.white,
+        ),
       ),
     ),
     textTheme: TextTheme(

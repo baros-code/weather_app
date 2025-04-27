@@ -2,4 +2,5 @@
     "files.exclude": {
         "**/*.g.dart": true
     },
+    "java.configuration.updateBuildConfiguration": "automatic",
 }

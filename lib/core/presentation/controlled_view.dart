@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../../app/utils/service_locator.dart';
+import '../../app/shared/utils/service_locator.dart';
 import 'controller.dart';
 
 abstract class ControlledView<TController extends Controller<TParams>,

@@ -25,6 +25,8 @@ dependencies:
   provider: ^6.1.4
   flutter_localizations:
     sdk: flutter
+  geolocator: ^14.0.0
+  geocoding: ^3.0.0
 
 
 dev_dependencies:
