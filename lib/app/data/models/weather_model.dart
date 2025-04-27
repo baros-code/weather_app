@@ -36,9 +36,9 @@ class WeatherModel {
   Weather toEntity() {
     return Weather(
       id: id ?? 0,
-      main: main ?? AppConfig.nullString,
-      description: description ?? AppConfig.nullString,
-      icon: icon ?? AppConfig.nullString,
+      main: main ?? AppConfig.defaultString,
+      description: description ?? AppConfig.defaultString,
+      icon: icon ?? AppConfig.defaultString,
     );
   }
 }

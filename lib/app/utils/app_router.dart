@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../presentation/weather/pages/home_page.dart';
 
@@ -12,7 +13,15 @@ abstract class AppRouter {
     switch (settings.name) {
       case homePage:
         return MaterialPageRoute(
-          builder: (_) => HomePage(),
+          builder: (_) => PopScope(
+            canPop: false,
+            onPopInvokedWithResult: (didPop, result) {
+              if (!didPop) {
+                SystemNavigator.pop();
+              }
+            },
+            child: HomePage(),
+          ),
         );
       default:
         return MaterialPageRoute(

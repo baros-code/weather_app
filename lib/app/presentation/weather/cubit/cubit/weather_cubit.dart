@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
+import '../../../../../core/network/api_manager_helpers.dart';
 import '../../../../domain/entities/current_weather.dart';
 import '../../../../domain/usecases/get_current_weather.dart';
 
@@ -15,12 +16,21 @@ class WeatherCubit extends Cubit<WeatherState> {
 
   final GetCurrentWeather _getCurrentWeather;
 
+  CurrentWeather? currentWeatherCache;
+
   void getCurrentWeather(String cityName) async {
     emit(CurrentWeatherLoading());
     final result = await _getCurrentWeather(params: cityName);
     if (result.isSuccessful) {
+      currentWeatherCache = result.value;
       emit(CurrentWeatherLoaded(result.value!));
+      return;
     }
-    emit(CurrentWeatherError());
+    if (result.error is ApiError) {
+      final apiError = result.error as ApiError;
+      emit(CurrentWeatherError(apiError.errorType));
+      return;
+    }
+    emit(CurrentWeatherError(null));
   }
 }

@@ -14,7 +14,7 @@ class AppConfig {
 
   static final String _apiKey = dotenv.env['API_KEY']!;
 
-  static const String nullString = 'N/A';
+  static const String defaultString = 'N/A';
 
   static final lightTheme = ThemeData(
     useMaterial3: true,

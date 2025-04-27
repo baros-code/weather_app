@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import '../../app_config.dart';
+import '../../presentation/utils/temperature_utils.dart';
 import 'clouds.dart';
 import 'coord.dart';
 import 'main_weather.dart';
@@ -24,6 +26,7 @@ class CurrentWeather extends Equatable {
     required this.cod,
   });
 
+  // TODO(Baran): Are you sure about these, make them not nullable?
   final Coord? coord;
   final List<Weather>? weather;
   final String? base;
@@ -37,6 +40,32 @@ class CurrentWeather extends Equatable {
   final int? id;
   final String? name;
   final int? cod;
+
+  double? get temperature => TemperatureUtils.kelvinToCelsius(main?.temp);
+
+  String get temperatureLabel {
+    if (temperature == null) {
+      return AppConfig.defaultString;
+    }
+    return '${temperature!.toStringAsFixed(0)}°C';
+  }
+
+  String get weatherDescription =>
+      weather?.firstOrNull?.description ?? AppConfig.defaultString;
+
+  String get humidityLabel {
+    if (main?.humidity == null) {
+      return AppConfig.defaultString;
+    }
+    return '${main!.humidity}%';
+  }
+
+  String get windSpeedLabel {
+    if (wind?.speed == null) {
+      return AppConfig.defaultString;
+    }
+    return '${wind!.speed} km/h';
+  }
 
   factory CurrentWeather.initial() {
     return const CurrentWeather(

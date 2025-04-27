@@ -17,4 +17,11 @@ class HomeController extends Controller<Object> {
     _weatherCubit = context.read<WeatherCubit>();
     _weatherCubit.getCurrentWeather('New York');
   }
+
+  void getCurrentWeather(String cityName) {
+    if (cityName.isEmpty) {
+      return;
+    }
+    _weatherCubit.getCurrentWeather(cityName);
+  }
 }

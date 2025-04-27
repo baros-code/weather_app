@@ -8,8 +8,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 import 'app/app_config.dart';
-import 'app/presentation/utils/localization_provider.dart';
-import 'app/presentation/utils/theme_provider.dart';
+import 'app/utils/localization_provider.dart';
+import 'app/utils/theme_provider.dart';
 import 'app/presentation/weather/cubit/cubit/weather_cubit.dart';
 import 'app/utils/app_router.dart';
 import 'app/utils/service_locator.dart';

@@ -4,14 +4,14 @@ sealed class WeatherState extends Equatable {
   const WeatherState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-final class WeatherInitial extends WeatherState {}
+class WeatherInitial extends WeatherState {}
 
-final class CurrentWeatherLoading extends WeatherState {}
+class CurrentWeatherLoading extends WeatherState {}
 
-final class CurrentWeatherLoaded extends WeatherState {
+class CurrentWeatherLoaded extends WeatherState {
   const CurrentWeatherLoaded(this.currentWeather);
 
   final CurrentWeather currentWeather;
@@ -20,4 +20,11 @@ final class CurrentWeatherLoaded extends WeatherState {
   List<Object> get props => [currentWeather];
 }
 
-final class CurrentWeatherError extends WeatherState {}
+class CurrentWeatherError extends WeatherState {
+  const CurrentWeatherError(this.errorType);
+
+  final ApiErrorType? errorType;
+
+  @override
+  List<Object?> get props => [errorType];
+}

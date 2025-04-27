@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../app_config.dart';
+import '../app_config.dart';
 
 // TODO(Baran): Save the theme mode in shared preferences.
 class ThemeProvider with ChangeNotifier {
