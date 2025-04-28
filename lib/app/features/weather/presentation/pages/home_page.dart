@@ -3,11 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/network/api_manager_helpers.dart';
 import '../../../../../core/presentation/controlled_view.dart';
+import '../../../../shared/data/services/location_service.dart';
+import '../../../../shared/presentation/widgets/base_page.dart';
 import '../../../../shared/presentation/widgets/custom_search_bar.dart';
 import '../../../../shared/utils/build_context_ext.dart';
-import '../../../../shared/data/services/location_service.dart';
 import '../controllers/home_controller.dart';
 import '../cubit/weather_cubit.dart';
+import '../widgets/weather_details_view.dart';
 
 class HomePage extends ControlledView<HomeController, Address> {
   HomePage({
@@ -17,30 +19,24 @@ class HomePage extends ControlledView<HomeController, Address> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
+    return BasePage(
       backgroundColor: context.colorScheme.primaryContainer,
-      appBar: AppBar(
-        backgroundColor: context.colorScheme.primaryContainer,
-        automaticallyImplyLeading: false,
-        centerTitle: true,
-        title: Text(
-          'Weather App',
-          style: context.textTheme.headlineSmall,
-        ),
-        actions: [
-          IconButton(
-            onPressed: () => context.themeProvider.toggleThemeMode(),
-            icon: const Icon(Icons.brightness_4),
-          ),
-          IconButton(
-            onPressed: () =>
-                context.localizationProvider.setLocale(const Locale('es')),
-            icon: const Icon(Icons.language),
-          ),
-        ],
+      title: Text(
+        'Weather App',
+        style: context.textTheme.headlineSmall,
       ),
-      body: SafeArea(child: _Body(controller)),
+      actions: [
+        IconButton(
+          onPressed: () => context.themeProvider.toggleThemeMode(),
+          icon: const Icon(Icons.brightness_4),
+        ),
+        IconButton(
+          onPressed: () =>
+              context.localizationProvider.setLocale(const Locale('es')),
+          icon: const Icon(Icons.language),
+        ),
+      ],
+      body: _Body(controller),
     );
   }
 }
@@ -73,8 +69,8 @@ class _Body extends StatelessWidget {
               _CurrentWeatherSection(state),
               const Spacer(),
               ElevatedButton(
+                onPressed: controller.goToForecastPage,
                 child: Text('View Forecast (7 days)'),
-                onPressed: () {},
               ),
             ],
           ),
@@ -92,40 +88,27 @@ class _CurrentWeatherSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (state is CurrentWeatherLoading) {
-      return const Center(child: CircularProgressIndicator());
+      return Expanded(child: const Center(child: CircularProgressIndicator()));
     }
     if (state is CurrentWeatherError) {
       if ((state as CurrentWeatherError).errorType == ApiErrorType.notFound) {
-        return const Center(child: Text('The city was not found'));
+        return Expanded(
+          child: const Center(child: Text('The city was not found')),
+        );
       }
-      return const Center(child: Text('Error loading weather data'));
+      return Expanded(
+        child: const Center(child: Text('Error loading weather data')),
+      );
     }
     if (state is CurrentWeatherLoaded) {
       final currentWeather = (state as CurrentWeatherLoaded).currentWeather;
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Location: ${currentWeather.name}',
-            style: context.textTheme.titleLarge,
-          ),
-          Text(
-            'Temperature: ${currentWeather.temperatureLabel},',
-            style: context.textTheme.titleLarge,
-          ),
-          Text(
-            'Weather: ${currentWeather.weatherDescription}',
-            style: context.textTheme.titleLarge,
-          ),
-          Text(
-            'Humidity: ${currentWeather.humidityLabel}',
-            style: context.textTheme.titleLarge,
-          ),
-          Text(
-            'Wind Speed: ${currentWeather.windSpeedLabel}',
-            style: context.textTheme.titleLarge,
-          ),
-        ],
+      return WeatherDetailsView(
+        temperature: currentWeather.temperatureLabel,
+        weatherIconUrl: currentWeather.weatherIconUrl,
+        humidity: currentWeather.humidityLabel,
+        windSpeed: currentWeather.windSpeedLabel,
+        visibility: currentWeather.visibilityLabel,
+        windDirection: currentWeather.windDirectionLabel,
       );
     }
     return const SizedBox.shrink();

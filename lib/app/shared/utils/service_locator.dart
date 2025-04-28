@@ -9,14 +9,17 @@ import '../../features/weather/data/repositories/weather_repository_impl.dart';
 import '../../features/weather/data/services/remote/weather_remote_service.dart';
 import '../../features/weather/domain/repositories/weather_repository.dart';
 import '../../features/weather/domain/usecases/get_current_weather.dart';
+import '../../features/weather/domain/usecases/get_weekly_forecast.dart';
+import '../../features/weather/presentation/controllers/forecast_controller.dart';
 import '../../features/weather/presentation/controllers/home_controller.dart';
 import '../../features/weather/presentation/cubit/weather_cubit.dart';
 import '../data/repositories/location_repository_impl.dart';
+import '../data/services/location_service.dart';
 import '../domain/repositories/location_repository.dart';
 import '../domain/usecases/get_address_from_location.dart';
 import '../domain/usecases/get_device_location.dart';
+import '../domain/usecases/get_location_from_address.dart';
 import '../presentation/cubit/cubit/device_location_cubit.dart';
-import '../data/services/location_service.dart';
 
 final locator = GetIt.instance;
 
@@ -27,7 +30,7 @@ abstract class ServiceLocator {
       ..registerSingleton<Logger>(LoggerImpl())
       ..registerSingleton<ConnectivityManager>(ConnectivityManagerImpl())
       ..registerSingleton<ApiManager>(ApiManagerImpl(locator(), locator()))
-      ..registerSingleton(PopupManager());
+      ..registerSingleton<PopupManager>(PopupManagerImpl());
 
     // Register services
     locator.registerSingleton<LocationService>(DeviceLocationServiceImpl());
@@ -51,15 +54,23 @@ abstract class ServiceLocator {
       () => GetAddressFromLocation(locator(), locator()),
     );
     locator.registerFactory(
+      () => GetLocationFromAddress(locator(), locator()),
+    );
+    locator.registerFactory(
       () => GetCurrentWeather(locator(), locator()),
+    );
+    locator.registerFactory(
+      () => GetWeeklyForecast(locator(), locator()),
     );
 
     // Register cubits
     locator.registerFactory(() => DeviceLocationCubit(locator(), locator()));
-    locator.registerFactory(() => WeatherCubit(locator()));
+    locator
+        .registerFactory(() => WeatherCubit(locator(), locator(), locator()));
 
     // Register controllers
     locator.registerFactory(() => SplashController(locator(), locator()));
     locator.registerFactory(() => HomeController(locator(), locator()));
+    locator.registerFactory(() => ForecastController(locator(), locator()));
   }
 }

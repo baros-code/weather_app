@@ -11,7 +11,7 @@ class GetAddressFromLocation extends UseCase<Location, Address, void> {
 
   @override
   Future<Result<Address, Failure>> execute({Location? params}) {
-    return _locationRepository.getAddressFromCoords(
+    return _locationRepository.getAddressFromLocation(
       params!.latitude,
       params.longitude,
     );

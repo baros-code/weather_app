@@ -23,12 +23,11 @@ class SplashPage extends ControlledView<SplashController, Object> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                if (state is DeviceLocationLoading)
-                  const CircularProgressIndicator(),
                 Text(
                   'Welcome to Weather App',
                   style: context.textTheme.headlineSmall,
                 ),
+                if (state is DeviceLocationLoading) CircularProgressIndicator(),
               ],
             ),
           ),

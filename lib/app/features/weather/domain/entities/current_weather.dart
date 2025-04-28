@@ -26,7 +26,6 @@ class CurrentWeather extends Equatable {
     required this.cod,
   });
 
-  // TODO(Baran): Are you sure about these, make them not nullable?
   final Coord? coord;
   final List<Weather>? weather;
   final String? base;
@@ -50,6 +49,13 @@ class CurrentWeather extends Equatable {
     return '${temperature!.toStringAsFixed(0)}°C';
   }
 
+  String get weatherIconUrl {
+    if (weather?.firstOrNull?.icon == null) {
+      return AppConfig.defaultString;
+    }
+    return '${AppConfig.imageBaseUrl}/${weather!.first.icon}@2x.png';
+  }
+
   String get weatherDescription =>
       weather?.firstOrNull?.description ?? AppConfig.defaultString;
 
@@ -65,6 +71,20 @@ class CurrentWeather extends Equatable {
       return AppConfig.defaultString;
     }
     return '${wind!.speed} km/h';
+  }
+
+  String get windDirectionLabel {
+    if (wind?.deg == null) {
+      return AppConfig.defaultString;
+    }
+    return '${wind!.deg}°';
+  }
+
+  String get visibilityLabel {
+    if (visibility == null) {
+      return AppConfig.defaultString;
+    }
+    return '${(visibility! / 1000).toStringAsFixed(0)} km';
   }
 
   factory CurrentWeather.initial() {

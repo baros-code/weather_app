@@ -12,15 +12,19 @@ class AppConfig {
 
   static const String _apiBaseUrl = 'https://api.openweathermap.org/data';
 
+  static const String imageBaseUrl = 'https://openweathermap.org/img/wn/';
+
   static final String _apiKey = dotenv.env['API_KEY']!;
 
   static const String defaultString = 'N/A';
+
+  // TODO(Baran): Colors must come from a constant file.
 
   static final lightTheme = ThemeData(
     useMaterial3: true,
     colorScheme: ColorScheme(
       brightness: Brightness.light,
-      primary: Color(0xFF96416A),
+      primary: Colors.blue,
       onPrimary: Color(0xFFFFFFFF),
       primaryContainer: Colors.blue.shade100,
       onPrimaryContainer: Color(0xFF3D0024),
@@ -32,8 +36,12 @@ class AppConfig {
       onSurface: Color(0xFF1C1B1F),
     ),
     appBarTheme: AppBarTheme(
+      backgroundColor: Colors.blue.shade100,
+      actionsIconTheme: IconThemeData(
+        color: Colors.blue,
+      ),
       iconTheme: IconThemeData(
-        color: Colors.black,
+        color: Colors.blue,
       ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
@@ -49,6 +57,9 @@ class AppConfig {
           color: Colors.white,
         ),
       ),
+    ),
+    progressIndicatorTheme: ProgressIndicatorThemeData(
+      color: Colors.blue,
     ),
     textTheme: TextTheme(
       displayLarge: TextStyle(
@@ -113,7 +124,7 @@ class AppConfig {
       error: Color(0xFFBA1B1B),
       onError: Color(0xFFFFFFFF),
       surface: Color(0xFFFBFCFE),
-      onSurface: Color(0xFF1C1B1F),
+      onSurface: Color(0xFFFFFFFF),
     ),
     appBarTheme: AppBarTheme(
       iconTheme: IconThemeData(

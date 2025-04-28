@@ -6,15 +6,17 @@ import '../../domain/entities/location.dart' as l1;
 
 abstract class LocationService {
   /// Returns the current position of the device.
-  Future<LocationResult> getCurrentLocation();
+  Future<LocationResult> getDeviceLocation();
 
-  Future<Address?> getAddressFromCoords(double latitude, double longitude);
+  Future<Address> getAddressFromCoords(double latitude, double longitude);
+
+  Future<l1.Location> getLocationFromAddress(String address);
 }
 
 // TODO(Baran): Test this on iOS real device.
 class DeviceLocationServiceImpl implements LocationService {
   @override
-  Future<LocationResult> getCurrentLocation() async {
+  Future<LocationResult> getDeviceLocation() async {
     bool serviceEnabled;
     LocationPermission permission;
 
@@ -60,23 +62,36 @@ class DeviceLocationServiceImpl implements LocationService {
   }
 
   @override
-  Future<Address?> getAddressFromCoords(
+  Future<Address> getAddressFromCoords(
     double latitude,
     double longitude,
   ) async {
     final placemarks = await placemarkFromCoordinates(latitude, longitude);
     if (placemarks.isNotEmpty) {
       final placemark = placemarks.first;
-      if (placemark.administrativeArea == null) {
-        return null;
+      if (placemark.administrativeArea != null) {
+        return Address(
+          city: placemark.administrativeArea!,
+          street: placemark.street ?? AppConfig.defaultString,
+          country: placemark.country ?? AppConfig.defaultString,
+        );
       }
-      return Address(
-        city: placemark.administrativeArea!,
-        street: placemark.street ?? AppConfig.defaultString,
-        country: placemark.country ?? AppConfig.defaultString,
+    }
+    throw Exception(
+      'No address found for the coordinates: $latitude, $longitude',
+    );
+  }
+
+  @override
+  Future<l1.Location> getLocationFromAddress(String address) async {
+    final locations = await locationFromAddress(address);
+    if (locations.isNotEmpty) {
+      return l1.Location(
+        latitude: locations.first.latitude,
+        longitude: locations.first.longitude,
       );
     }
-    return null;
+    throw Exception('No location found for the address: $address');
   }
 }
 

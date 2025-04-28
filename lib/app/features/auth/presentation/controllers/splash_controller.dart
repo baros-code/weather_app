@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../../core/presentation/controller.dart';
 import '../../../../shared/presentation/cubit/cubit/device_location_cubit.dart';
@@ -22,13 +22,9 @@ class SplashController extends Controller<Object> {
 
   void handleLocationStates(DeviceLocationState state) {
     if (state is DeviceLocationLoaded) {
-      Navigator.pushNamed(
-        context,
-        AppRouter.homePage,
-        arguments: state.address,
-      );
+      context.goNamed(AppRoutes.homeRoute.name, extra: state.address);
     } else if (state is DeviceLocationError) {
-      Navigator.pushNamed(context, AppRouter.homePage);
+      context.goNamed(AppRoutes.homeRoute.name);
     }
   }
 }

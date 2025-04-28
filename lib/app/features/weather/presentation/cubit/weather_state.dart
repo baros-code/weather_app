@@ -28,3 +28,23 @@ class CurrentWeatherError extends WeatherState {
   @override
   List<Object?> get props => [errorType];
 }
+
+class WeeklyForecastLoading extends WeatherState {}
+
+class WeeklyForecastLoaded extends WeatherState {
+  const WeeklyForecastLoaded(this.forecast);
+
+  final List<DailyForecast> forecast;
+
+  @override
+  List<Object> get props => [forecast];
+}
+
+class WeeklyForecastError extends WeatherState {
+  const WeeklyForecastError(this.errorType);
+
+  final ApiErrorType? errorType;
+
+  @override
+  List<Object?> get props => [errorType];
+}
