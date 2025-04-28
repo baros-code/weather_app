@@ -61,7 +61,7 @@ class _Body extends StatelessWidget {
             children: [
               // TODO(Baran): Add suggestions as enhancement.
               CustomSearchBar(
-                initialValue: controller.currentAddress?.city,
+                initialValue: controller.currentAddress.city,
                 hintText: 'Search for a city',
                 onChange: controller.getCurrentWeather,
               ),
@@ -103,6 +103,7 @@ class _CurrentWeatherSection extends StatelessWidget {
     if (state is CurrentWeatherLoaded) {
       final currentWeather = (state as CurrentWeatherLoaded).currentWeather;
       return WeatherDetailsView(
+        name: currentWeather.name,
         temperature: currentWeather.temperatureLabel,
         weatherIconUrl: currentWeather.weatherIconUrl,
         humidity: currentWeather.humidityLabel,

@@ -105,6 +105,14 @@ class Address {
   final String city;
   final String? street;
   final String? country;
+
+  factory Address.newYork() {
+    return const Address(
+      city: 'New York',
+      street: 'Broadway',
+      country: 'USA',
+    );
+  }
 }
 
 class LocationResult {

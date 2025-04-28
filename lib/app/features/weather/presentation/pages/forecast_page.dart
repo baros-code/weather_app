@@ -40,11 +40,6 @@ class _Body extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
-            'Forecast for ${controller.currentAddress.city}',
-            style: context.textTheme.headlineSmall,
-          ),
-          const SizedBox(height: 16),
           BlocBuilder<WeatherCubit, WeatherState>(
             buildWhen: (previous, current) =>
                 current is WeeklyForecastLoading ||

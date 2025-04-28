@@ -7,6 +7,7 @@ import 'weather_label_card.dart';
 class WeatherDetailsView extends StatelessWidget {
   const WeatherDetailsView({
     super.key,
+    required this.name,
     required this.temperature,
     required this.weatherIconUrl,
     required this.humidity,
@@ -15,6 +16,7 @@ class WeatherDetailsView extends StatelessWidget {
     required this.windDirection,
   });
 
+  final String? name;
   final String temperature;
   final String weatherIconUrl;
   final String humidity;
@@ -26,6 +28,23 @@ class WeatherDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        if (name != null)
+          RichText(
+            text: TextSpan(
+              text: 'Weather in ',
+              style: context.textTheme.titleMedium,
+              children: [
+                TextSpan(
+                  text: name,
+                  style: context.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: context.colorScheme.primary,
+                  ),
+                ),
+              ],
+            ),
+            textAlign: TextAlign.center,
+          ),
         CachedNetworkImage(
           imageUrl: weatherIconUrl,
           fit: BoxFit.cover,

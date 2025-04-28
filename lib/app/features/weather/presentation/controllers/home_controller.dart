@@ -13,14 +13,14 @@ class HomeController extends Controller<Address> {
   );
 
   late final WeatherCubit _weatherCubit;
-  late Address? currentAddress;
+  late Address currentAddress;
 
   @override
   void onStart() {
     super.onStart();
-    currentAddress = params;
+    currentAddress = params ?? Address.newYork();
     _weatherCubit = context.read<WeatherCubit>();
-    _weatherCubit.getCurrentWeather(currentAddress?.city ?? 'New York');
+    _weatherCubit.getCurrentWeather(currentAddress.city);
   }
 
   void getCurrentWeather(String cityName) {
@@ -33,9 +33,6 @@ class HomeController extends Controller<Address> {
   }
 
   void goToForecastPage() {
-    if (currentAddress == null) {
-      popupManager.showToastMessage(context, 'Please select a city first');
-    }
     context.goNamed(AppRoutes.forecastRoute.name, extra: currentAddress);
   }
 }

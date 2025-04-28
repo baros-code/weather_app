@@ -34,6 +34,7 @@ class _Body extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: WeatherDetailsView(
+        name: null,
         temperature: forecast.temperatureLabel,
         weatherIconUrl: forecast.weatherIconUrl,
         humidity: forecast.humidityLabel,
