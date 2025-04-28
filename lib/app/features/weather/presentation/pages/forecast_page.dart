@@ -35,46 +35,44 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          BlocBuilder<WeatherCubit, WeatherState>(
-            buildWhen: (previous, current) =>
-                current is WeeklyForecastLoading ||
-                current is WeeklyForecastLoaded ||
-                current is WeeklyForecastError,
-            builder: (context, state) {
-              if (state is WeeklyForecastLoading) {
-                return Expanded(
-                  child: const Center(child: CircularProgressIndicator()),
-                );
-              } else if (state is WeeklyForecastLoaded) {
-                return Expanded(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: state.forecast.length,
-                    itemBuilder: (context, index) {
-                      final forecast = state.forecast[index];
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 16),
-                        child: DailyWeatherCard(
-                          forecast,
-                          onTap: () => controller.showWeatherDetails(forecast),
-                        ),
-                      );
-                    },
-                  ),
-                );
-              } else if (state is WeeklyForecastError) {
-                return Center(child: Text('state.error'));
-              }
-              return const SizedBox.shrink();
-            },
-          ),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        BlocBuilder<WeatherCubit, WeatherState>(
+          buildWhen: (previous, current) =>
+              current is WeeklyForecastLoading ||
+              current is WeeklyForecastLoaded ||
+              current is WeeklyForecastError,
+          builder: (context, state) {
+            if (state is WeeklyForecastLoading) {
+              return Expanded(
+                child: const Center(child: CircularProgressIndicator()),
+              );
+            } else if (state is WeeklyForecastLoaded) {
+              return Expanded(
+                child: ListView.builder(
+                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                  shrinkWrap: true,
+                  itemCount: state.forecast.length,
+                  itemBuilder: (context, index) {
+                    final forecast = state.forecast[index];
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 16),
+                      child: DailyWeatherCard(
+                        forecast,
+                        onTap: () => controller.showWeatherDetails(forecast),
+                      ),
+                    );
+                  },
+                ),
+              );
+            } else if (state is WeeklyForecastError) {
+              return Center(child: Text('state.error'));
+            }
+            return const SizedBox.shrink();
+          },
+        ),
+      ],
     );
   }
 }

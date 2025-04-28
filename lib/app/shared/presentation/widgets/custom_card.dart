@@ -75,14 +75,14 @@ class CustomCard extends StatelessWidget {
         ? [
             BoxShadow(
               color: shadowColor ??
-                  context.colorScheme.shadow.withValues(alpha: 0.06),
+                  context.colorScheme.onSurface.withValues(alpha: 0.5),
               spreadRadius: 0,
               blurRadius: 2,
               offset: const Offset(0, 1),
             ),
             BoxShadow(
               color: shadowColor ??
-                  context.colorScheme.shadow.withValues(alpha: 0.1),
+                  context.colorScheme.onSurface.withValues(alpha: 0.5),
               spreadRadius: 0,
               blurRadius: 8,
               offset: const Offset(0, 1),
