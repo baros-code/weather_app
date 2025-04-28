@@ -13,7 +13,7 @@ class HomeController extends Controller<Address> {
   );
 
   late final WeatherCubit _weatherCubit;
-  late final Address? currentAddress;
+  late Address? currentAddress;
 
   @override
   void onStart() {
@@ -28,6 +28,8 @@ class HomeController extends Controller<Address> {
       return;
     }
     _weatherCubit.getCurrentWeather(cityName);
+    // Update the current address
+    currentAddress = Address(city: cityName);
   }
 
   void goToForecastPage() {

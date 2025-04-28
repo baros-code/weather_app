@@ -98,13 +98,13 @@ class DeviceLocationServiceImpl implements LocationService {
 class Address {
   const Address({
     required this.city,
-    required this.street,
-    required this.country,
+    this.street,
+    this.country,
   });
 
   final String city;
-  final String street;
-  final String country;
+  final String? street;
+  final String? country;
 }
 
 class LocationResult {
