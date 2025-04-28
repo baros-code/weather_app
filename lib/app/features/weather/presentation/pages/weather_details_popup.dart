@@ -34,13 +34,14 @@ class _Body extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: WeatherDetailsView(
-        name: null,
         temperature: forecast.temperatureLabel,
         weatherIconUrl: forecast.weatherIconUrl,
         humidity: forecast.humidityLabel,
         windSpeed: forecast.windSpeedLabel,
         visibility: forecast.visibilityLabel,
         windDirection: forecast.windDirectionLabel,
+        minTemperature: forecast.minTemperatureLabel,
+        maxTemperature: forecast.maxTemperatureLabel,
       ),
     );
   }

@@ -40,6 +40,20 @@ class DailyForecast extends Equatable {
     return '${temperatureValue!.toStringAsFixed(0)}°C';
   }
 
+  String get minTemperatureLabel {
+    if (temperatureValue == null) {
+      return AppConfig.defaultString;
+    }
+    return '''${TemperatureUtils.kelvinToCelsius(temperature.min)!.toStringAsFixed(0)}°C''';
+  }
+
+  String get maxTemperatureLabel {
+    if (temperatureValue == null) {
+      return AppConfig.defaultString;
+    }
+    return '''${TemperatureUtils.kelvinToCelsius(temperature.max)!.toStringAsFixed(0)}°C''';
+  }
+
   String get weatherIconUrl {
     if (weather.firstOrNull?.icon == null) {
       return AppConfig.defaultString;

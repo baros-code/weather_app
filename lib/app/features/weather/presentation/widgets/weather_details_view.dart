@@ -7,13 +7,15 @@ import 'weather_label_card.dart';
 class WeatherDetailsView extends StatelessWidget {
   const WeatherDetailsView({
     super.key,
-    required this.name,
+    this.name,
     required this.temperature,
     required this.weatherIconUrl,
     required this.humidity,
     required this.windSpeed,
     required this.visibility,
     required this.windDirection,
+    this.minTemperature,
+    this.maxTemperature,
   });
 
   final String? name;
@@ -23,6 +25,8 @@ class WeatherDetailsView extends StatelessWidget {
   final String windSpeed;
   final String visibility;
   final String windDirection;
+  final String? minTemperature;
+  final String? maxTemperature;
 
   @override
   Widget build(BuildContext context) {
@@ -51,9 +55,26 @@ class WeatherDetailsView extends StatelessWidget {
           width: 160,
           errorWidget: (context, url, error) => const Icon(Icons.error),
         ),
-        Text(
-          temperature,
-          style: context.textTheme.headlineMedium,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (minTemperature != null)
+              Text(
+                'Min: $minTemperature',
+                style: context.textTheme.titleMedium,
+              ),
+            const Spacer(),
+            Text(
+              temperature,
+              style: context.textTheme.headlineMedium,
+            ),
+            const Spacer(),
+            if (maxTemperature != null)
+              Text(
+                'Max: $maxTemperature',
+                style: context.textTheme.titleMedium,
+              ),
+          ],
         ),
         const SizedBox(height: 32),
         Row(
