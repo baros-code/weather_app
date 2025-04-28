@@ -4,7 +4,14 @@ import '../../../core/network/api_manager.dart';
 import '../../../core/network/connectivity_manager.dart';
 import '../../../core/utils/logger.dart';
 import '../../../core/utils/popup_manager.dart';
+import '../../features/auth/data/models/user_session_model.dart';
+import '../../features/auth/data/repositories/auth_repository_impl.dart';
+import '../../features/auth/data/services/session_local_storage.dart';
+import '../../features/auth/domain/repositories/auth_repository.dart';
+import '../../features/auth/domain/usecases/get_user_session.dart';
+import '../../features/auth/domain/usecases/update_user_session.dart';
 import '../../features/auth/presentation/controllers/splash_controller.dart';
+import '../../features/auth/presentation/cubit/auth_cubit.dart';
 import '../../features/weather/data/repositories/weather_repository_impl.dart';
 import '../../features/weather/data/services/remote/weather_remote_service.dart';
 import '../../features/weather/domain/repositories/weather_repository.dart';
@@ -33,12 +40,18 @@ abstract class ServiceLocator {
       ..registerSingleton<PopupManager>(PopupManagerImpl());
 
     // Register services
+    locator.registerSingleton<SessionLocalStorage>(
+      SessionLocalStorageImpl(locator()),
+    );
     locator.registerSingleton<LocationService>(DeviceLocationServiceImpl());
     locator.registerSingleton<WeatherRemoteService>(
       WeatherRemoteServiceImpl(locator()),
     );
 
     // Register repositories
+    locator.registerSingleton<AuthRepository>(
+      AuthRepositoryImpl(locator()),
+    );
     locator.registerSingleton<LocationRepository>(
       LocationRepositoryImpl(locator()),
     );
@@ -47,6 +60,12 @@ abstract class ServiceLocator {
     );
 
     // Register use cases
+    locator.registerFactory(
+      () => GetUserSession(locator(), locator()),
+    );
+    locator.registerFactory(
+      () => UpdateUserSession(locator(), locator()),
+    );
     locator.registerFactory(
       () => GetDeviceLocation(locator(), locator()),
     );
@@ -64,13 +83,25 @@ abstract class ServiceLocator {
     );
 
     // Register cubits
+    locator.registerFactory(() => AuthCubit(locator()));
     locator.registerFactory(() => DeviceLocationCubit(locator(), locator()));
-    locator
-        .registerFactory(() => WeatherCubit(locator(), locator(), locator()));
+    locator.registerFactory(
+      () => WeatherCubit(
+        locator(),
+        locator(),
+        locator(),
+        locator(),
+      ),
+    );
 
     // Register controllers
     locator.registerFactory(() => SplashController(locator(), locator()));
     locator.registerFactory(() => HomeController(locator(), locator()));
     locator.registerFactory(() => ForecastController(locator(), locator()));
+
+    // Register models for local storage
+    locator.registerFactoryParam<UserSessionModel, Map<String, dynamic>, void>(
+      (json, _) => UserSessionModel.fromJson(json),
+    );
   }
 }

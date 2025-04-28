@@ -1,55 +1,37 @@
 import 'package:equatable/equatable.dart';
 
-import '../../../../shared/domain/entities/location.dart';
+import '../../../weather/domain/entities/current_weather.dart';
 
-// TODO(Baran): Add current weather for cache.
 class UserSession extends Equatable {
   const UserSession({
-    required this.selectedTheme,
-    required this.selectedLanguage,
-    required this.selectedMeasurementSystem,
-    required this.location,
+    required this.date,
+    this.currentWeather,
+    this.selectedMeasurementSystem,
   });
 
-  final CustomThemeMode selectedTheme;
-  final Language selectedLanguage;
-  final MeasurementSystem selectedMeasurementSystem;
-  final Location location;
+  final DateTime date;
+  final CurrentWeather? currentWeather;
+  final MeasurementSystem? selectedMeasurementSystem;
+
+  UserSession copyWith({
+    DateTime? date,
+    CurrentWeather? currentWeather,
+    MeasurementSystem? selectedMeasurementSystem,
+  }) {
+    return UserSession(
+      date: date ?? this.date,
+      currentWeather: currentWeather ?? this.currentWeather,
+      selectedMeasurementSystem:
+          selectedMeasurementSystem ?? this.selectedMeasurementSystem,
+    );
+  }
 
   @override
-  List<Object?> get props =>
-      [selectedTheme, selectedLanguage, selectedMeasurementSystem, location];
-}
-
-enum CustomThemeMode {
-  light('light'),
-  dark('dark');
-
-  const CustomThemeMode(this.value);
-
-  final String value;
-
-  static CustomThemeMode fromString(String? value) {
-    return CustomThemeMode.values.firstWhere(
-      (e) => e.value == value,
-      orElse: () => CustomThemeMode.light,
-    );
-  }
-}
-
-enum Language {
-  english('en'),
-  spanish('es');
-
-  const Language(this.value);
-  final String value;
-
-  static Language fromString(String? value) {
-    return Language.values.firstWhere(
-      (e) => e.value == value,
-      orElse: () => Language.english,
-    );
-  }
+  List<Object?> get props => [
+        date,
+        currentWeather,
+        selectedMeasurementSystem,
+      ];
 }
 
 enum MeasurementSystem {

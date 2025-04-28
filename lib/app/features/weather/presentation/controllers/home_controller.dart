@@ -3,24 +3,30 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../../core/presentation/controller.dart';
 import '../../../../shared/data/services/location_service.dart';
+import '../../../../shared/presentation/cubit/cubit/device_location_cubit.dart';
 import '../../../../shared/utils/app_router.dart';
+import '../../../auth/presentation/cubit/auth_cubit.dart';
 import '../cubit/weather_cubit.dart';
 
-class HomeController extends Controller<Address> {
+class HomeController extends Controller<Object> {
   HomeController(
     super.logger,
     super.popupManager,
   );
 
+  late final AuthCubit _authCubit;
+  late final DeviceLocationCubit _deviceLocationCubit;
   late final WeatherCubit _weatherCubit;
   late Address currentAddress;
 
   @override
   void onStart() {
     super.onStart();
-    currentAddress = params ?? Address.newYork();
+    _authCubit = context.read<AuthCubit>();
+    _deviceLocationCubit = context.read<DeviceLocationCubit>();
     _weatherCubit = context.read<WeatherCubit>();
-    _weatherCubit.getCurrentWeather(currentAddress.city);
+    currentAddress = _deviceLocationCubit.currentAddress ?? Address.newYork();
+    _tryGetCurrentWeatherFromCache();
   }
 
   void getCurrentWeather(String cityName) {
@@ -35,4 +41,15 @@ class HomeController extends Controller<Address> {
   void goToForecastPage() {
     context.goNamed(AppRoutes.forecastRoute.name, extra: currentAddress);
   }
+
+  // Helpers
+  void _tryGetCurrentWeatherFromCache() {
+    if (_authCubit.currentWeatherCache != null &&
+        _authCubit.currentWeatherCache!.name == currentAddress.city) {
+      _weatherCubit.updateCurrentWeatherCache(_authCubit.currentWeatherCache!);
+    } else {
+      _weatherCubit.getCurrentWeather(currentAddress.city);
+    }
+  }
+  // -- Helpers
 }

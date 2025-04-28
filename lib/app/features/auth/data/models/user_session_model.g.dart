@@ -8,18 +8,18 @@ part of 'user_session_model.dart';
 
 UserSessionModel _$UserSessionModelFromJson(Map<String, dynamic> json) =>
     UserSessionModel(
-      selectedTheme: json['selectedTheme'] as String?,
-      selectedLanguage: json['selectedLanguage'] as String?,
-      selectedMeasurementSystem: json['selectedMeasurementSystem'] as String?,
-      location: json['location'] == null
+      date:
+          json['date'] == null ? null : DateTime.parse(json['date'] as String),
+      currentWeather: json['currentWeather'] == null
           ? null
-          : LocationModel.fromJson(json['location'] as Map<String, dynamic>),
+          : CurrentWeatherModel.fromJson(
+              json['currentWeather'] as Map<String, dynamic>),
+      selectedMeasurementSystem: json['selectedMeasurementSystem'] as String?,
     );
 
 Map<String, dynamic> _$UserSessionModelToJson(UserSessionModel instance) =>
     <String, dynamic>{
-      'selectedTheme': instance.selectedTheme,
-      'selectedLanguage': instance.selectedLanguage,
+      'date': instance.date?.toIso8601String(),
+      'currentWeather': instance.currentWeather,
       'selectedMeasurementSystem': instance.selectedMeasurementSystem,
-      'location': instance.location,
     };

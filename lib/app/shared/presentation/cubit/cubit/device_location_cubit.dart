@@ -1,10 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
+import '../../../data/services/location_service.dart';
 import '../../../domain/entities/location.dart';
 import '../../../domain/usecases/get_address_from_location.dart';
 import '../../../domain/usecases/get_device_location.dart';
-import '../../../data/services/location_service.dart';
 
 part 'device_location_state.dart';
 
@@ -16,6 +16,8 @@ class DeviceLocationCubit extends Cubit<DeviceLocationState> {
 
   final GetDeviceLocation _getDeviceLocation;
   final GetAddressFromLocation _getAddressFromLocation;
+
+  Address? currentAddress;
 
   Future<void> getCurrentAddress() async {
     emit(DeviceLocationLoading());
@@ -30,6 +32,7 @@ class DeviceLocationCubit extends Cubit<DeviceLocationState> {
           ),
         );
         if (addressResult.isSuccessful) {
+          currentAddress = addressResult.value;
           emit(DeviceLocationLoaded(addressResult.value!));
           return;
         }

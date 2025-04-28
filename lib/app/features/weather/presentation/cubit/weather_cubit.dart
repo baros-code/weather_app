@@ -3,14 +3,13 @@ import 'package:equatable/equatable.dart';
 
 import '../../../../../core/network/api_manager_helpers.dart';
 import '../../../../shared/domain/usecases/get_location_from_address.dart';
+import '../../../auth/domain/usecases/update_user_session.dart';
 import '../../domain/entities/current_weather.dart';
 import '../../domain/entities/daily_forecast.dart';
 import '../../domain/usecases/get_current_weather.dart';
 import '../../domain/usecases/get_weekly_forecast.dart';
 
 part 'weather_state.dart';
-
-// TODO(Baran): Implement caching for weather data using Hive or SharedPreferences.
 
 // TODO(Baran): Add unit tests for some widget & use cases.
 
@@ -19,14 +18,17 @@ class WeatherCubit extends Cubit<WeatherState> {
     this._getCurrentWeather,
     this._getWeeklyForecast,
     this._getLocationFromAddress,
+    this._updateUserSession,
   ) : super(WeatherInitial());
 
   final GetCurrentWeather _getCurrentWeather;
   final GetWeeklyForecast _getWeeklyForecast;
   final GetLocationFromAddress _getLocationFromAddress;
+  final UpdateUserSession _updateUserSession;
 
   CurrentWeather? currentWeatherCache;
-  List<DailyForecast>? weeklyForecastCache;
+  // Forecast data is cached by city name.
+  Map<String, List<DailyForecast>> weeklyForecastCache = {};
 
   void getCurrentWeather(String cityName) async {
     emit(CurrentWeatherLoading());
@@ -34,6 +36,14 @@ class WeatherCubit extends Cubit<WeatherState> {
     if (result.isSuccessful) {
       currentWeatherCache = result.value;
       emit(CurrentWeatherLoaded(result.value!));
+      // Update user session with the current weather data.
+      _updateUserSession(
+        params: UserSessionParams(
+          // To detect the expiration of the cache.
+          date: DateTime.now(),
+          currentWeather: result.value,
+        ),
+      );
       return;
     }
     if (result.error is ApiError) {
@@ -45,6 +55,10 @@ class WeatherCubit extends Cubit<WeatherState> {
   }
 
   void getWeeklyForecast(String cityName) async {
+    if (weeklyForecastCache[cityName] != null) {
+      emit(WeeklyForecastLoaded(weeklyForecastCache[cityName]!));
+      return;
+    }
     emit(WeeklyForecastLoading());
     final locationResult = await _getLocationFromAddress(params: cityName);
     if (!locationResult.isSuccessful) {
@@ -58,7 +72,7 @@ class WeatherCubit extends Cubit<WeatherState> {
       ),
     );
     if (result.isSuccessful) {
-      weeklyForecastCache = result.value;
+      weeklyForecastCache[cityName] = result.value!;
       emit(WeeklyForecastLoaded(result.value!));
       return;
     }
@@ -68,5 +82,10 @@ class WeatherCubit extends Cubit<WeatherState> {
       return;
     }
     emit(WeeklyForecastError(null));
+  }
+
+  void updateCurrentWeatherCache(CurrentWeather currentWeather) {
+    currentWeatherCache = currentWeather;
+    emit(CurrentWeatherLoaded(currentWeather));
   }
 }

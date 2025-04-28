@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/network/api_manager_helpers.dart';
 import '../../../../../core/presentation/controlled_view.dart';
-import '../../../../shared/data/services/location_service.dart';
 import '../../../../shared/presentation/widgets/base_page.dart';
 import '../../../../shared/presentation/widgets/custom_search_bar.dart';
 import '../../../../shared/utils/build_context_ext.dart';
@@ -11,7 +10,8 @@ import '../controllers/home_controller.dart';
 import '../cubit/weather_cubit.dart';
 import '../widgets/weather_details_view.dart';
 
-class HomePage extends ControlledView<HomeController, Address> {
+// TODO(Baran): Fix overflow when keyboard is open.
+class HomePage extends ControlledView<HomeController, Object> {
   HomePage({
     super.key,
     super.params,
@@ -20,6 +20,7 @@ class HomePage extends ControlledView<HomeController, Address> {
   @override
   Widget build(BuildContext context) {
     return BasePage(
+      resizeToAvoidBottomInset: false,
       backgroundColor: context.colorScheme.primaryContainer,
       title: Text(
         'Weather App',
