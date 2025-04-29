@@ -16,12 +16,12 @@ abstract class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case splashPage:
-        return MaterialPageRoute(
-          builder: (_) => SplashPage(),
+        return _slideTransitionRoute(
+          SplashPage(),
         );
       case homePage:
-        return MaterialPageRoute(
-          builder: (_) => PopScope(
+        return _slideTransitionRoute(
+          PopScope(
             canPop: false,
             onPopInvokedWithResult: (didPop, result) {
               if (!didPop) {
@@ -34,19 +34,40 @@ abstract class AppRouter {
           ),
         );
       case forecastPage:
-        return MaterialPageRoute(
-          builder: (_) => ForecastPage(
+        return _slideTransitionRoute(
+          ForecastPage(
             params: settings.arguments as Address,
           ),
         );
       default:
-        return MaterialPageRoute(
-          builder: (_) => Scaffold(
+        return _slideTransitionRoute(
+          Scaffold(
             body: Center(
               child: Text('No route defined for ${settings.name}'),
             ),
           ),
         );
     }
+  }
+
+  static PageRouteBuilder<Widget> _slideTransitionRoute(Widget page) {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => page,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(1, 0); // From right to left
+        const end = Offset.zero;
+        const curve = Curves.ease;
+
+        final tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        final offsetAnimation = animation.drive(tween);
+
+        return SlideTransition(
+          position: offsetAnimation,
+          child: child,
+        );
+      },
+      transitionDuration: const Duration(milliseconds: 300),
+    );
   }
 }
