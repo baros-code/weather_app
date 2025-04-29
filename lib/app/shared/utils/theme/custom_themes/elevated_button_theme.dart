@@ -7,6 +7,10 @@ class TElevatedButtonTheme {
     style: ElevatedButton.styleFrom(
       backgroundColor: Colors.blue,
       foregroundColor: Colors.white,
+      textStyle: const TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+      ),
     ),
   );
 
@@ -14,6 +18,10 @@ class TElevatedButtonTheme {
     style: ElevatedButton.styleFrom(
       backgroundColor: Colors.blue,
       foregroundColor: Colors.white,
+      textStyle: const TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+      ),
     ),
   );
 }

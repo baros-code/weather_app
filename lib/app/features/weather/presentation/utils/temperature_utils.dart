@@ -1,6 +1,4 @@
 class TemperatureUtils {
-  // ignore: lines_longer_than_80_chars
-  // TODO(Baran): Add UserPrefs to the constructor to get the user's preferred measurement system.
   static double? kelvinToCelsius(double? kelvin) {
     if (kelvin == null) {
       return null;

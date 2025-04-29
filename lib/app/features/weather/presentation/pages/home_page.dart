@@ -10,7 +10,6 @@ import '../controllers/home_controller.dart';
 import '../cubit/weather_cubit.dart';
 import '../widgets/weather_details_view.dart';
 
-// TODO(Baran): Fix overflow when keyboard is open.
 class HomePage extends ControlledView<HomeController, Object> {
   HomePage({
     super.key,
@@ -66,7 +65,9 @@ class _Body extends StatelessWidget {
               _CurrentWeatherSection(state),
               const Spacer(),
               ElevatedButton(
-                onPressed: controller.goToForecastPage,
+                onPressed: state is CurrentWeatherLoaded
+                    ? controller.goToForecastPage
+                    : controller.showToastMessage,
                 child: Text('View Forecast (7 days)'),
               ),
             ],
@@ -90,11 +91,21 @@ class _CurrentWeatherSection extends StatelessWidget {
     if (state is CurrentWeatherError) {
       if ((state as CurrentWeatherError).errorType == ApiErrorType.notFound) {
         return Expanded(
-          child: const Center(child: Text('The city was not found')),
+          child: Center(
+            child: Text(
+              'The city was not found!',
+              style: context.textTheme.titleMedium,
+            ),
+          ),
         );
       }
       return Expanded(
-        child: const Center(child: Text('Error loading weather data')),
+        child: Center(
+          child: Text(
+            'Error loading weather data',
+            style: context.textTheme.titleMedium,
+          ),
+        ),
       );
     }
     if (state is CurrentWeatherLoaded) {

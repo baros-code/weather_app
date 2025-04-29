@@ -19,7 +19,7 @@ class ToastCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomCard(
       borderRadius: BorderRadius.circular(16),
-      backgroundColor: context.theme.primaryColorDark,
+      backgroundColor: context.theme.primaryColor,
       padding: const EdgeInsets.symmetric(
         horizontal: 16,
         vertical: 10,

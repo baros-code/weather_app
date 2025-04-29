@@ -13,7 +13,6 @@ abstract class LocationService {
   Future<l1.Location> getLocationFromAddress(String address);
 }
 
-// TODO(Baran): Test this on iOS real device.
 class DeviceLocationServiceImpl implements LocationService {
   @override
   Future<LocationResult> getDeviceLocation() async {

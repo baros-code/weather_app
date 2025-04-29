@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'custom_themes/appbar_theme.dart';
 import 'custom_themes/elevated_button_theme.dart';
+import 'custom_themes/progress_indicator_theme.dart';
 import 'custom_themes/text_theme.dart';
 
 class TAppTheme {
@@ -17,6 +18,7 @@ class TAppTheme {
     textTheme: TTextTheme.lightTextTheme,
     elevatedButtonTheme: TElevatedButtonTheme.lightElevatedButtonTheme,
     appBarTheme: TAppBarTheme.lightAppBarTheme,
+    progressIndicatorTheme: TProgressIndicatorTheme.lightProgressIndicatorTheme,
   );
   static ThemeData darkTheme = ThemeData(
     useMaterial3: true,
@@ -28,5 +30,6 @@ class TAppTheme {
     textTheme: TTextTheme.darkTextTheme,
     elevatedButtonTheme: TElevatedButtonTheme.darkElevatedButtonTheme,
     appBarTheme: TAppBarTheme.darkAppBarTheme,
+    progressIndicatorTheme: TProgressIndicatorTheme.darkProgressIndicatorTheme,
   );
 }

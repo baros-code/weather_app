@@ -45,6 +45,10 @@ class HomeController extends Controller<Object> {
     );
   }
 
+  void showToastMessage() {
+    popupManager.showToastMessage(context, 'Please search for a city first!');
+  }
+
   // Helpers
   void _tryGetCurrentWeatherFromCache() {
     if (_authCubit.currentWeatherCache != null &&
