@@ -5,6 +5,7 @@ import '../../../../../core/presentation/controller.dart';
 import '../../../../shared/data/services/location_service.dart';
 import '../../../../shared/presentation/cubit/cubit/device_location_cubit.dart';
 import '../../../../shared/utils/app_router.dart';
+import '../../../../shared/utils/build_context_ext.dart';
 import '../../../auth/presentation/cubit/auth_cubit.dart';
 import '../cubit/weather_cubit.dart';
 
@@ -47,6 +48,15 @@ class HomeController extends Controller<Object> {
 
   void showToastMessage() {
     popupManager.showToastMessage(context, 'Please search for a city first!');
+  }
+
+  void toggleLanguage() {
+    final currentLocale = context.localizations.localeName;
+    if (currentLocale == 'en') {
+      context.localizationProvider.setLocale(const Locale('es'));
+    } else {
+      context.localizationProvider.setLocale(const Locale('en'));
+    }
   }
 
   // Helpers

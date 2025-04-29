@@ -1,6 +1,16 @@
 {
-    "helloWorld": "Hello World!",
-    "@helloWorld": {
-        "description": "The programmer greeting!"
-    }
+    "weather_app": "Weather App",
+    "welcome_weather_app": "Welcome to the Weather App",
+    "weather_in": "Weather in",
+    "humidity": "Humidity",
+    "wind": "Wind",
+    "visibility": "Visibility",
+    "wind_direction": "Wind Direction",
+    "view_forecast_7_days": "View Forecast (7 days)",
+    "search_for_city": "Search for a city",
+    "city_not_found": "City was not found!",
+    "error_loading_data": "An error occurred while loading the data!",
+    "min": "Min",
+    "max": "Max",
+    "weekly_forecast": "Weekly forecast"
 }

@@ -18,7 +18,7 @@ class SplashPage extends ControlledView<SplashController, Object> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Welcome to Weather App',
+              context.localizations.welcome_weather_app,
               style: context.textTheme.headlineSmall,
             ),
             const SizedBox(height: 16),

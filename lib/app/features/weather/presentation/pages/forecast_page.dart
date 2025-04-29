@@ -20,7 +20,7 @@ class ForecastPage extends ControlledView<ForecastController, Address> {
     return BasePage(
       backButtonEnabled: true,
       title: Text(
-        'Weekly Forecast',
+        context.localizations.weekly_forecast,
         style: context.textTheme.headlineSmall,
       ),
       body: _Body(controller),
@@ -67,7 +67,9 @@ class _Body extends StatelessWidget {
                 ),
               );
             } else if (state is WeeklyForecastError) {
-              return Center(child: Text('state.error'));
+              return Center(
+                child: Text(context.localizations.error_loading_data),
+              );
             }
             return const SizedBox.shrink();
           },

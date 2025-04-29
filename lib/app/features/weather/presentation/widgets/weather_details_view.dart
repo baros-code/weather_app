@@ -35,11 +35,11 @@ class WeatherDetailsView extends StatelessWidget {
         if (name != null)
           RichText(
             text: TextSpan(
-              text: 'Weather in ',
+              text: context.localizations.weather_in,
               style: context.textTheme.titleMedium,
               children: [
                 TextSpan(
-                  text: name,
+                  text: ' $name',
                   style: context.textTheme.titleMedium,
                 ),
               ],
@@ -57,7 +57,7 @@ class WeatherDetailsView extends StatelessWidget {
           children: [
             if (minTemperature != null)
               Text(
-                'Min: $minTemperature',
+                '${context.localizations.min}: $minTemperature',
                 style: context.textTheme.titleMedium,
               ),
             const Spacer(),
@@ -68,7 +68,7 @@ class WeatherDetailsView extends StatelessWidget {
             const Spacer(),
             if (maxTemperature != null)
               Text(
-                'Max: $maxTemperature',
+                '${context.localizations.max}: $maxTemperature',
                 style: context.textTheme.titleMedium,
               ),
           ],
@@ -77,12 +77,12 @@ class WeatherDetailsView extends StatelessWidget {
         Row(
           children: [
             WeatherLabelCard(
-              label: 'Humidity',
+              label: context.localizations.humidity,
               value: humidity,
             ),
             const SizedBox(width: 8),
             WeatherLabelCard(
-              label: 'Wind',
+              label: context.localizations.wind,
               value: windSpeed,
             ),
           ],
@@ -91,12 +91,12 @@ class WeatherDetailsView extends StatelessWidget {
         Row(
           children: [
             WeatherLabelCard(
-              label: 'Visibility',
+              label: context.localizations.visibility,
               value: visibility,
             ),
             const SizedBox(width: 8),
             WeatherLabelCard(
-              label: 'Wind Direction',
+              label: context.localizations.wind_direction,
               value: windDirection,
             ),
           ],

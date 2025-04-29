@@ -20,15 +20,14 @@ class HomePage extends ControlledView<HomeController, Object> {
   Widget build(BuildContext context) {
     return BasePage(
       resizeToAvoidBottomInset: false,
-      title: Text('Weather App'),
+      title: Text(context.localizations.weather_app),
       actions: [
         IconButton(
           onPressed: () => context.themeProvider.toggleThemeMode(),
           icon: const Icon(Icons.brightness_4),
         ),
         IconButton(
-          onPressed: () =>
-              context.localizationProvider.setLocale(const Locale('es')),
+          onPressed: controller.toggleLanguage,
           icon: const Icon(Icons.language),
         ),
       ],
@@ -58,7 +57,7 @@ class _Body extends StatelessWidget {
               // TODO(Baran): Add suggestions as enhancement.
               CustomSearchBar(
                 initialValue: controller.currentAddress.city,
-                hintText: 'Search for a city',
+                hintText: context.localizations.search_for_city,
                 onChange: controller.getCurrentWeather,
               ),
               const SizedBox(height: 16),
@@ -68,7 +67,7 @@ class _Body extends StatelessWidget {
                 onPressed: state is CurrentWeatherLoaded
                     ? controller.goToForecastPage
                     : controller.showToastMessage,
-                child: Text('View Forecast (7 days)'),
+                child: Text(context.localizations.view_forecast_7_days),
               ),
             ],
           ),
@@ -93,7 +92,7 @@ class _CurrentWeatherSection extends StatelessWidget {
         return Expanded(
           child: Center(
             child: Text(
-              'The city was not found!',
+              context.localizations.city_not_found,
               style: context.textTheme.titleMedium,
             ),
           ),
@@ -102,7 +101,7 @@ class _CurrentWeatherSection extends StatelessWidget {
       return Expanded(
         child: Center(
           child: Text(
-            'Error loading weather data',
+            context.localizations.error_loading_data,
             style: context.textTheme.titleMedium,
           ),
         ),

@@ -1,6 +1,16 @@
 {
-    "helloWorld": "¡Hola Mundo!",
-    "@helloWorld": {
-        "description": "¡El saludo del programador!"
-    }
+    "weather_app": "Aplicación del Clima",
+      "welcome_weather_app": "Bienvenido a la Aplicación del Clima",
+    "weather_in": "Clima en",
+    "humidity": "Humedad",
+    "wind": "Viento",
+    "visibility": "Visibilidad",
+    "wind_direction": "Dirección del Viento",
+    "view_forecast_7_days": "Ver Pronóstico (7 días)",
+    "search_for_city": "Buscar una ciudad",
+    "city_not_found": "¡Ciudad no encontrada!",
+    "error_loading_data": "¡Ocurrió un error al cargar los datos!",
+    "min": "Mín",
+    "max": "Máx",
+    "weekly_forecast": "Pronóstico semanal"
 }
