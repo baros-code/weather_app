@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../core/network/api_manager_helpers.dart';
 import '../../../../../core/presentation/controlled_view.dart';
 import '../../../../shared/presentation/widgets/base_page.dart';
 import '../../../../shared/presentation/widgets/custom_search_bar.dart';
 import '../../../../shared/utils/build_context_ext.dart';
+import '../../../../shared/utils/theme_provider.dart';
 import '../controllers/home_controller.dart';
 import '../cubit/weather_cubit.dart';
 import '../widgets/weather_details_view.dart';
@@ -18,20 +20,24 @@ class HomePage extends ControlledView<HomeController, Object> {
 
   @override
   Widget build(BuildContext context) {
-    return BasePage(
-      resizeToAvoidBottomInset: false,
-      title: Text(context.localizations.weather_app),
-      actions: [
-        IconButton(
-          onPressed: () => context.themeProvider.toggleThemeMode(),
-          icon: const Icon(Icons.brightness_4),
-        ),
-        IconButton(
-          onPressed: controller.toggleLanguage,
-          icon: const Icon(Icons.language),
-        ),
-      ],
-      body: _Body(controller),
+    return Consumer<ThemeProvider>(
+      builder: (context, themeProvider, _) {
+        return BasePage(
+          resizeToAvoidBottomInset: false,
+          title: Text(context.localizations.weather_app),
+          actions: [
+            IconButton(
+              onPressed: () => context.themeProvider.toggleThemeMode(),
+              icon: const Icon(Icons.brightness_4),
+            ),
+            IconButton(
+              onPressed: controller.toggleLanguage,
+              icon: const Icon(Icons.language),
+            ),
+          ],
+          body: _Body(controller),
+        );
+      },
     );
   }
 }
