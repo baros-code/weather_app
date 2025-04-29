@@ -49,7 +49,7 @@ class CustomCard extends StatelessWidget {
         child: child,
       ).bordered(
         isEnabled: showBorder,
-        borderColor: borderColor ?? context.colorScheme.onSurface,
+        borderColor: borderColor ?? context.theme.shadowColor,
         radius: borderRadius ?? BorderRadius.circular(16),
       ),
     );
@@ -60,12 +60,12 @@ class CustomCard extends StatelessWidget {
     return shape != null
         ? ShapeDecoration(
             shape: shape!,
-            color: backgroundColor ?? context.colorScheme.onSurface,
+            color: backgroundColor ?? context.theme.scaffoldBackgroundColor,
             shadows: _buildShadows(context),
           )
         : BoxDecoration(
             borderRadius: borderRadius ?? BorderRadius.circular(16),
-            color: backgroundColor ?? context.colorScheme.onSurface,
+            color: backgroundColor ?? context.theme.scaffoldBackgroundColor,
             boxShadow: _buildShadows(context),
           );
   }
@@ -75,14 +75,14 @@ class CustomCard extends StatelessWidget {
         ? [
             BoxShadow(
               color: shadowColor ??
-                  context.colorScheme.onSurface.withValues(alpha: 0.5),
+                  context.theme.shadowColor.withValues(alpha: 0.2),
               spreadRadius: 0,
               blurRadius: 2,
               offset: const Offset(0, 1),
             ),
             BoxShadow(
               color: shadowColor ??
-                  context.colorScheme.onSurface.withValues(alpha: 0.5),
+                  context.theme.shadowColor.withValues(alpha: 0.2),
               spreadRadius: 0,
               blurRadius: 8,
               offset: const Offset(0, 1),

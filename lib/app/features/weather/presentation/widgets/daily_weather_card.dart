@@ -16,7 +16,6 @@ class DailyWeatherCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomCard(
       onTap: onTap,
-      backgroundColor: context.colorScheme.primary,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -24,23 +23,17 @@ class DailyWeatherCard extends StatelessWidget {
             children: [
               Text(
                 dailyForecast.date.dayName(),
-                style: context.textTheme.bodyMedium?.copyWith(
-                  color: context.colorScheme.onPrimary,
-                ),
+                style: context.textTheme.bodyMedium,
               ),
               Text(
                 dailyForecast.date.monthNameAndDay(),
-                style: context.textTheme.bodyMedium?.copyWith(
-                  color: context.colorScheme.onPrimary,
-                ),
+                style: context.textTheme.bodyMedium,
               ),
             ],
           ),
           Text(
             dailyForecast.temperatureLabel,
-            style: context.textTheme.headlineSmall?.copyWith(
-              color: context.colorScheme.onPrimary,
-            ),
+            style: context.textTheme.headlineSmall,
           ),
           CachedNetworkImage(
             imageUrl: dailyForecast.weatherIconUrl,

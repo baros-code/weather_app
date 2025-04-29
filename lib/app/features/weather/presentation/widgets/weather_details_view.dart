@@ -40,10 +40,7 @@ class WeatherDetailsView extends StatelessWidget {
               children: [
                 TextSpan(
                   text: name,
-                  style: context.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: context.colorScheme.primary,
-                  ),
+                  style: context.textTheme.titleMedium,
                 ),
               ],
             ),

@@ -10,6 +10,8 @@ import '../data/services/location_service.dart';
 class AppRouter {
   static final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
+  static GoRouter get router => _router;
+
   static final GoRouter _router = GoRouter(
     navigatorKey: _rootNavigatorKey,
     initialLocation: AppRoutes.splashRoute.path,
@@ -56,8 +58,6 @@ class AppRouter {
       ),
     ],
   );
-
-  static GoRouter get router => _router;
 
   static Page<Widget> _buildPage({
     required Widget page,

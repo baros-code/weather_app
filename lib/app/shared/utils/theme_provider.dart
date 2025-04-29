@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../../app_config.dart';
+import 'theme/theme.dart';
 
-// TODO(Baran): Save the theme mode in shared preferences.
 class ThemeProvider with ChangeNotifier {
   late ThemeMode _themeMode = ThemeMode.system;
 
-  late final ThemeData lightTheme = AppConfig.lightTheme;
-  late final ThemeData darkTheme = AppConfig.darkTheme;
+  late final ThemeData lightTheme = TAppTheme.lightTheme;
+  late final ThemeData darkTheme = TAppTheme.darkTheme;
 
   ThemeData get currentTheme =>
       _themeMode == ThemeMode.dark ? darkTheme : lightTheme;

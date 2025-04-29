@@ -19,7 +19,7 @@ class ToastCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomCard(
       borderRadius: BorderRadius.circular(16),
-      backgroundColor: context.colorScheme.onPrimaryContainer,
+      backgroundColor: context.theme.primaryColorDark,
       padding: const EdgeInsets.symmetric(
         horizontal: 16,
         vertical: 10,
@@ -27,7 +27,7 @@ class ToastCard extends StatelessWidget {
       child: Text(
         text,
         style: context.textTheme.bodyMedium!.apply(
-          color: context.colorScheme.onSurface,
+          color: context.theme.primaryColorLight,
         ),
         textAlign: TextAlign.center,
       ),

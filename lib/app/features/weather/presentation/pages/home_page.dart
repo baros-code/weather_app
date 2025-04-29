@@ -21,11 +21,7 @@ class HomePage extends ControlledView<HomeController, Object> {
   Widget build(BuildContext context) {
     return BasePage(
       resizeToAvoidBottomInset: false,
-      backgroundColor: context.colorScheme.primaryContainer,
-      title: Text(
-        'Weather App',
-        style: context.textTheme.headlineSmall,
-      ),
+      title: Text('Weather App'),
       actions: [
         IconButton(
           onPressed: () => context.themeProvider.toggleThemeMode(),

@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../../shared/data/models/location_model.dart';
 import '../../../weather/data/models/current_weather_model.dart';
 import '../../domain/entities/user_session.dart';
 

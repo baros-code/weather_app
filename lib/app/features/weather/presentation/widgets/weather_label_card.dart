@@ -17,20 +17,15 @@ class WeatherLabelCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomCard(
       width: 180,
-      backgroundColor: context.colorScheme.primary,
       child: Column(
         children: [
           Text(
             label,
-            style: context.textTheme.bodyMedium?.copyWith(
-              color: context.colorScheme.onPrimary,
-            ),
+            style: context.textTheme.bodyMedium,
           ),
           Text(
             value,
-            style: context.textTheme.titleLarge?.copyWith(
-              color: context.colorScheme.onPrimary,
-            ),
+            style: context.textTheme.titleLarge,
           ),
           const SizedBox(height: 8),
         ],

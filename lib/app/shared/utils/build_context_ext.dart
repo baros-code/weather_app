@@ -15,9 +15,8 @@ extension BuildContextExt on BuildContext {
   /// Returns the theme provider of the app.
   ThemeProvider get themeProvider =>
       Provider.of<ThemeProvider>(this, listen: false);
-
-  /// Returns the current color scheme of the app.
-  ColorScheme get colorScheme => themeProvider.currentTheme.colorScheme;
+  
+  ThemeData get theme => themeProvider.currentTheme;
 
   TextTheme get textTheme => themeProvider.currentTheme.textTheme;
 }

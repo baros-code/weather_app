@@ -57,7 +57,6 @@ class MainApp extends StatelessWidget {
               theme: themeProvider.lightTheme,
               darkTheme: themeProvider.darkTheme,
               themeMode: themeProvider.themeMode,
-              debugShowCheckedModeBanner: false,
               routerConfig: AppRouter.router,
               localizationsDelegates: [
                 AppLocalizations.delegate,
@@ -79,7 +78,7 @@ class MainApp extends StatelessWidget {
     return MediaQuery(
       // Prevent system settings change font size of the app.
       data: MediaQuery.of(context).copyWith(textScaler: TextScaler.noScaling),
-      child: Scaffold(body: child),
+      child: child ?? const SizedBox(),
     );
   }
 

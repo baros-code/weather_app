@@ -201,7 +201,7 @@ class _PageBody extends StatelessWidget {
       ),
       clipBehavior: isRounded ? Clip.antiAlias : Clip.none,
       child: Container(
-        color: backgroundColor ?? context.colorScheme.primaryContainer,
+        color: backgroundColor ?? context.theme.scaffoldBackgroundColor,
         padding: padding ?? EdgeInsets.zero,
         child: child,
       ),
