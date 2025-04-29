@@ -53,11 +53,12 @@ class MainApp extends StatelessWidget {
         ],
         child: Consumer2<ThemeProvider, LocalizationProvider>(
           builder: (context, themeProvider, localizationProvider, _) {
-            return MaterialApp.router(
+            return MaterialApp(
               theme: themeProvider.lightTheme,
               darkTheme: themeProvider.darkTheme,
               themeMode: themeProvider.themeMode,
-              routerConfig: AppRouter.router,
+              initialRoute: AppRouter.initialRoute,
+              onGenerateRoute: AppRouter.generateRoute,
               localizationsDelegates: [
                 AppLocalizations.delegate,
                 GlobalMaterialLocalizations.delegate,

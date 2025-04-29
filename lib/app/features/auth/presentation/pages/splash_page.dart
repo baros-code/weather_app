@@ -21,6 +21,7 @@ class SplashPage extends ControlledView<SplashController, Object> {
               'Welcome to Weather App',
               style: context.textTheme.headlineSmall,
             ),
+            const SizedBox(height: 16),
             CircularProgressIndicator(),
           ],
         ),

@@ -1,7 +1,7 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../../../core/presentation/controller.dart';
 import '../../../../shared/presentation/cubit/cubit/device_location_cubit.dart';
@@ -33,7 +33,7 @@ class SplashController extends Controller<Object> {
       ..stream.listen(handleLocationStates);
     _canNavigateToHome.stream.listen((canNavigate) {
       if (canNavigate && context.mounted) {
-        context.goNamed(AppRoutes.homeRoute.name);
+        Navigator.of(context).pushNamed(AppRouter.homePage);
       }
     });
     _deviceLocationCubit.getCurrentAddress();

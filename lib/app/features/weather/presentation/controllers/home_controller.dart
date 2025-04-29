@@ -1,5 +1,5 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../../../core/presentation/controller.dart';
 import '../../../../shared/data/services/location_service.dart';
@@ -39,7 +39,10 @@ class HomeController extends Controller<Object> {
   }
 
   void goToForecastPage() {
-    context.goNamed(AppRoutes.forecastRoute.name, extra: currentAddress);
+    Navigator.of(context).pushNamed(
+      AppRouter.forecastPage,
+      arguments: currentAddress,
+    );
   }
 
   // Helpers
