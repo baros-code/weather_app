@@ -76,28 +76,36 @@ class WeatherDetailsView extends StatelessWidget {
         const SizedBox(height: 32),
         Row(
           children: [
-            WeatherLabelCard(
-              label: context.localizations.humidity,
-              value: humidity,
+            Expanded(
+              child: WeatherLabelCard(
+                label: context.localizations.humidity,
+                value: humidity,
+              ),
             ),
             const SizedBox(width: 8),
-            WeatherLabelCard(
-              label: context.localizations.wind,
-              value: windSpeed,
+            Expanded(
+              child: WeatherLabelCard(
+                label: context.localizations.wind,
+                value: windSpeed,
+              ),
             ),
           ],
         ),
         const SizedBox(height: 16),
         Row(
           children: [
-            WeatherLabelCard(
-              label: context.localizations.visibility,
-              value: visibility,
+            Expanded(
+              child: WeatherLabelCard(
+                label: context.localizations.visibility,
+                value: visibility,
+              ),
             ),
             const SizedBox(width: 8),
-            WeatherLabelCard(
-              label: context.localizations.wind_direction,
-              value: windDirection,
+            Expanded(
+              child: WeatherLabelCard(
+                label: context.localizations.wind_direction,
+                value: windDirection,
+              ),
             ),
           ],
         ),

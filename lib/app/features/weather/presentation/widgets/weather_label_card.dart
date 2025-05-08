@@ -16,7 +16,6 @@ class WeatherLabelCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomCard(
-      width: 180,
       child: Column(
         children: [
           Text(
