@@ -46,6 +46,13 @@ class HomeController extends Controller<Object> {
     );
   }
 
+  void goToSettingsPage() {
+    Navigator.of(context).pushNamed(
+      AppRouter.settingsPage,
+      arguments: currentAddress,
+    );
+  }
+
   void showToastMessage() {
     popupManager.showToastMessage(context, 'Please search for a city first!');
   }

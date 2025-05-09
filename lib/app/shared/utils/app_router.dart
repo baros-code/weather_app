@@ -4,12 +4,14 @@ import 'package:flutter/services.dart';
 import '../../features/auth/presentation/pages/splash_page.dart';
 import '../../features/weather/presentation/pages/forecast_page.dart';
 import '../../features/weather/presentation/pages/home_page.dart';
+import '../../features/weather/presentation/pages/settings_page.dart';
 import '../data/services/location_service.dart';
 
 abstract class AppRouter {
   static const String splashPage = '/splash';
   static const String homePage = '/home';
   static const String forecastPage = '/forecast';
+  static const String settingsPage = '/settings';
 
   static const String initialRoute = splashPage;
 
@@ -38,6 +40,10 @@ abstract class AppRouter {
           ForecastPage(
             params: settings.arguments as Address,
           ),
+        );
+      case settingsPage:
+        return _slideTransitionRoute(
+          SettingsPage(),
         );
       default:
         return _slideTransitionRoute(

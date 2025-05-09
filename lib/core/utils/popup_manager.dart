@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_material_pickers/helpers/show_scroll_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../app/shared/presentation/widgets/toast_card.dart';
@@ -11,6 +12,8 @@ abstract class PopupManager {
   });
 
   Future<void> showFullScreenPopup(BuildContext context, Widget content);
+
+  // void showScrollPicker(BuildContext context);
 }
 
 class PopupManagerImpl implements PopupManager {
@@ -65,4 +68,15 @@ class PopupManagerImpl implements PopupManager {
       },
     );
   }
+
+  // @override
+  // void showScrollPicker(BuildContext context,List<String> items) {
+  //   showMaterialScrollPicker<String>(
+  //     context: context,
+  //     title: 'Pick Your State',
+  //     items: items,
+  //     selectedItem: selectedUsState,
+  //     onChanged: (value) => setState(() => selectedUsState = value),
+  //   );
+  // }
 }

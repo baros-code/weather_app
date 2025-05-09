@@ -19,6 +19,7 @@ import '../../features/weather/domain/usecases/get_current_weather.dart';
 import '../../features/weather/domain/usecases/get_weekly_forecast.dart';
 import '../../features/weather/presentation/controllers/forecast_controller.dart';
 import '../../features/weather/presentation/controllers/home_controller.dart';
+import '../../features/weather/presentation/controllers/settings_page_controller.dart';
 import '../../features/weather/presentation/cubit/weather_cubit.dart';
 import '../data/repositories/location_repository_impl.dart';
 import '../data/services/location_service.dart';
@@ -98,6 +99,7 @@ abstract class ServiceLocator {
     locator.registerFactory(() => SplashController(locator(), locator()));
     locator.registerFactory(() => HomeController(locator(), locator()));
     locator.registerFactory(() => ForecastController(locator(), locator()));
+    locator.registerFactory(() => SettingsPageController(locator(), locator()));
 
     // Register models for local storage
     locator.registerFactoryParam<UserSessionModel, Map<String, dynamic>, void>(
