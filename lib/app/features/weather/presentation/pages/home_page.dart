@@ -20,24 +20,21 @@ class HomePage extends ControlledView<HomeController, Object> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ThemeProvider>(
-      builder: (context, themeProvider, _) {
-        return BasePage(
-          resizeToAvoidBottomInset: false,
-          title: Text(context.localizations.weather_app),
-          actions: [
-            IconButton(
-              onPressed: () => context.themeProvider.toggleThemeMode(),
-              icon: const Icon(Icons.brightness_4),
-            ),
-            IconButton(
-              onPressed: controller.toggleLanguage,
-              icon: const Icon(Icons.language),
-            ),
-          ],
-          body: _Body(controller),
-        );
-      },
+    return BasePage(
+      resizeToAvoidBottomInset: false,
+      title: Text(context.localizations.weather_app),
+      actions: [
+        IconButton(
+          onPressed: () => Provider.of<ThemeProvider>(context, listen: false)
+              .toggleThemeMode(),
+          icon: const Icon(Icons.brightness_4),
+        ),
+        IconButton(
+          onPressed: controller.toggleLanguage,
+          icon: const Icon(Icons.language),
+        ),
+      ],
+      body: _Body(controller),
     );
   }
 }

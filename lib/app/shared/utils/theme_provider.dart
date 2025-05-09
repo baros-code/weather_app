@@ -8,12 +8,7 @@ class ThemeProvider with ChangeNotifier {
   late final ThemeData lightTheme = TAppTheme.lightTheme;
   late final ThemeData darkTheme = TAppTheme.darkTheme;
 
-  ThemeData get currentTheme =>
-      _themeMode == ThemeMode.dark ? darkTheme : lightTheme;
-
   ThemeMode get themeMode => _themeMode;
-
-  bool get isDarkMode => _themeMode == ThemeMode.dark;
 
   void toggleThemeMode() {
     _themeMode =

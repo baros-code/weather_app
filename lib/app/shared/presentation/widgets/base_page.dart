@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../utils/build_context_ext.dart';
-
 class BasePage extends StatelessWidget {
   const BasePage({
     super.key,
@@ -201,7 +199,7 @@ class _PageBody extends StatelessWidget {
       ),
       clipBehavior: isRounded ? Clip.antiAlias : Clip.none,
       child: Container(
-        color: backgroundColor ?? context.theme.scaffoldBackgroundColor,
+        color: backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
         padding: padding ?? EdgeInsets.zero,
         child: child,
       ),

@@ -75,8 +75,9 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
                 width: _controller.text.isEmpty ? 1 : 2,
                 color: _controller.text.isEmpty
                     ? (widget.inActiveBorderColor ??
-                        context.theme.primaryColorLight)
-                    : (widget.activeBorderColor ?? context.theme.primaryColor),
+                        Theme.of(context).primaryColorLight)
+                    : (widget.activeBorderColor ??
+                        Theme.of(context).primaryColor),
               ),
             ),
             shape: WidgetStatePropertyAll(
@@ -92,7 +93,8 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
                 ? [_buildClearButton(context)]
                 : null,
             backgroundColor: WidgetStatePropertyAll(
-              widget.backgroundColor ?? context.theme.scaffoldBackgroundColor,
+              widget.backgroundColor ??
+                  Theme.of(context).scaffoldBackgroundColor,
             ),
             shadowColor: transparentColor,
             surfaceTintColor: transparentColor,
@@ -118,7 +120,8 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(4),
               ),
-              backgroundColor: widget.buttonColor ?? context.theme.primaryColor,
+              backgroundColor:
+                  widget.buttonColor ?? Theme.of(context).primaryColor,
             ),
             child: Text(
               widget.buttonText ?? 'Search',
@@ -140,7 +143,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
     return GestureDetector(
       child: Icon(
         Icons.close,
-        color: context.theme.primaryColor,
+        color: Theme.of(context).primaryColor,
       ),
       onTap: () {
         setState(() {
