@@ -12,5 +12,10 @@
     "error_loading_data": "An error occurred while loading the data!",
     "min": "Min",
     "max": "Max",
-    "weekly_forecast": "Weekly forecast"
+    "weekly_forecast": "Weekly forecast",
+    "settings": "Settings",
+    "light_mode": "Light mode",
+    "dark_mode": "Dark mode",
+    "change_language": "Change language",
+    "choose_language": "Choose language"
 }

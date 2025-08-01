@@ -12,5 +12,10 @@
     "error_loading_data": "¡Ocurrió un error al cargar los datos!",
     "min": "Mín",
     "max": "Máx",
-    "weekly_forecast": "Pronóstico semanal"
+    "weekly_forecast": "Pronóstico semanal",
+    "settings": "Configuración",
+    "light_mode": "Modo claro",
+    "dark_mode": "Modo oscuro",
+    "change_language": "Cambiar idioma",
+    "choose_language": "Elegir idioma"
 }

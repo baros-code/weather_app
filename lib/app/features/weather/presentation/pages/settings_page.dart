@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../../core/presentation/controlled_view.dart';
 import '../../../../shared/presentation/widgets/base_page.dart';
+import '../../../../shared/utils/build_context_ext.dart';
 import '../../../../shared/utils/theme_provider.dart';
 import '../controllers/settings_page_controller.dart';
 
@@ -17,7 +18,7 @@ class SettingsPage extends ControlledView<SettingsPageController, Object> {
   Widget build(BuildContext context) {
     return BasePage(
       backButtonEnabled: true,
-      title: Text('Settings'),
+      title: Text(context.localizations.settings),
       body: _Body(controller),
     );
   }
@@ -38,7 +39,7 @@ class _Body extends StatelessWidget {
         const SizedBox(height: 16),
         ElevatedButton(
           onPressed: () => _showLanguagePicker(context),
-          child: const Text('Change Language'),
+          child: Text(context.localizations.change_language),
         ),
       ],
     );
@@ -47,7 +48,7 @@ class _Body extends StatelessWidget {
   void _showLanguagePicker(BuildContext context) {
     showMaterialScrollPicker<String>(
       context: context,
-      title: 'Choose Language',
+      title: context.localizations.choose_language,
       items: ['English', 'Spanish'],
       selectedItem: 'English',
       onChanged: (value) {
@@ -79,7 +80,7 @@ class _ThemeModeToggle extends StatelessWidget {
           child: Row(
             children: [
               Icon(Icons.light_mode),
-              Text('Light mode'),
+              Text(context.localizations.light_mode),
             ],
           ),
         ),
@@ -88,7 +89,7 @@ class _ThemeModeToggle extends StatelessWidget {
           child: Row(
             children: [
               Icon(Icons.dark_mode),
-              Text('Dark mode'),
+              Text(context.localizations.dark_mode),
             ],
           ),
         ),
